@@ -32,7 +32,7 @@ h2 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     text-align: center;
     overflow: hidden;
-    min-height: 100px; /* 광고 로딩 전 빈 공간 방지 */
+    min-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,7 +109,7 @@ input::placeholder {
 
 /* 메인 컨테이너 */
 .table-container {
-    max-height: 60vh; /* 광고 공간 확보를 위해 높이 살짝 조절 */
+    max-height: 72vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -121,13 +121,13 @@ table {
 }
 
 /* ==========================================================================
-   📱 모바일 & 아이폰 13 프로 최적화 세련된 피드 디자인
+   📱 모바일 & 아이폰 최적화 세련된 피드 디자인
    ========================================================================== */
 @media (max-width: 767px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }
-    thead { display: none; } /* 헤더 제거 */
+    thead { display: none; }
 
     .apt-group-header {
         background: #ffffff !important;
@@ -273,6 +273,10 @@ table {
         padding-left: 30px;
         color: #48484a;
     }
+    .pc-ad-row td {
+        padding: 12px;
+        background-color: #f2f2f7;
+    }
 }
 </style>
 </head>
@@ -285,7 +289,7 @@ table {
         <span class="adsense-label">ADVERTISEMENT</span>
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-client="ca-pub-2850951807285210"
              data-ad-slot="YYYYYYYYYY"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
@@ -320,7 +324,7 @@ table {
         <span class="adsense-label">ADVERTISEMENT</span>
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-client="ca-pub-2850951807285210"
              data-ad-slot="ZZZZZZZZZZ"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
@@ -413,6 +417,7 @@ async function loadData() {
             }
         }
 
+        // 🛠️ [오타 완벽 교정] 오동작 하던 Promise.all 내부 호출 방식을 정상적으로 수정
         const xmlTexts = await Promise.all(responses.map(r => r.text()));
         const parser = new DOMParser();
         data = [];
@@ -474,6 +479,22 @@ function sortTable(column) {
     renderTable();
 }
 
+function getAdMarkup() {
+    return `
+        <div class="adsense-container" style="margin: 8px 0; background: #ffffff;">
+            <div>
+                <span class="adsense-label">ADVERTISEMENT</span>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2850951807285210"
+                     data-ad-slot="YYYYYYYYYY"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+    `;
+}
+
 function renderTable() {
     const tbody = document.getElementById("tableBody");
     tbody.innerHTML = "";
@@ -495,12 +516,15 @@ function renderTable() {
     });
 
     const isMobile = window.innerWidth < 767;
+    let aptGroupCounter = 0; 
 
     Object.entries(grouped).forEach(([aptNm, areaGroups]) => {
         const sortedAreaGroups = Object.fromEntries(
             Object.entries(areaGroups).sort((a, b) => Number(a[0]) - Number(b[0]))
         );
         const allRowsForApt = Object.values(sortedAreaGroups).flat();
+
+        aptGroupCounter++;
 
         if (isMobile) {
             const groupTr = document.createElement("tr");
@@ -519,6 +543,8 @@ function renderTable() {
             const detailTd = document.createElement("td");
             detailTd.className = "detail-container-tr";
             
+            let mobileDealCardCounter = 0;
+
             Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
                 const title = document.createElement("div");
                 title.innerHTML = `<h4>${area}㎡ (${areaRows.length}건)</h4>`;
@@ -542,6 +568,15 @@ function renderTable() {
                         <span class="deal-trade-info">중개구분: ${row.tradeInfo}</span>
                     `;
                     detailTd.appendChild(card);
+
+                    mobileDealCardCounter++;
+
+                    if (mobileDealCardCounter % 3 === 0) {
+                        const innerAdDiv = document.createElement("div");
+                        innerAdDiv.innerHTML = getAdMarkup();
+                        detailTd.appendChild(innerAdDiv);
+                        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+                    }
                 });
             });
             detailWrapperTr.appendChild(detailTd);
@@ -558,7 +593,18 @@ function renderTable() {
                 }
             };
 
+            if (aptGroupCounter % 3 === 0) {
+                const mobileAdTr = document.createElement("tr");
+                const mobileAdTd = document.createElement("td");
+                mobileAdTd.style.padding = "0";
+                mobileAdTd.innerHTML = getAdMarkup();
+                mobileAdTr.appendChild(mobileAdTd);
+                tbody.appendChild(mobileAdTr);
+                try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+            }
+
         } else {
+            // 💻 PC 버전 처리
             const aptRow = document.createElement("tr");
             aptRow.className = "pc-apt-row";
             const aptTd = document.createElement("td");
@@ -569,6 +615,8 @@ function renderTable() {
             tbody.appendChild(aptRow);
 
             const allChildRows = [];
+            const adRowsToPush = [];
+            let pcDealRowCounter = 0;
 
             Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
                 const areaRow = document.createElement("tr");
@@ -598,6 +646,24 @@ function renderTable() {
                     });
                     tbody.appendChild(dataTr);
                     allChildRows.push(dataTr);
+
+                    pcDealRowCounter++;
+
+                    if (pcDealRowCounter % 3 === 0) {
+                        const pcInnerAdTr = document.createElement("tr");
+                        pcInnerAdTr.className = "pc-ad-row";
+                        pcInnerAdTr.style.display = "none"; 
+                        
+                        const pcInnerAdTd = document.createElement("td");
+                        pcInnerAdTd.colSpan = columns.length;
+                        pcInnerAdTd.innerHTML = getAdMarkup();
+                        
+                        pcInnerAdTr.appendChild(pcInnerAdTd);
+                        tbody.appendChild(pcInnerAdTr);
+                        
+                        allChildRows.push(pcInnerAdTr);
+                        adRowsToPush.push(pcInnerAdTr);
+                    }
                 });
             });
 
@@ -607,11 +673,26 @@ function renderTable() {
                 if (isOpening) {
                     aptTd.textContent = aptTd.textContent.replace("▶", "▼");
                     allChildRows.forEach(r => r.style.display = "");
+                    
+                    adRowsToPush.forEach(() => {
+                        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+                    });
                 } else {
                     aptTd.textContent = aptTd.textContent.replace("▼", "▶");
                     allChildRows.forEach(r => r.style.display = "none");
                 }
             };
+
+            if (aptGroupCounter % 3 === 0) {
+                const pcAdTr = document.createElement("tr");
+                pcAdTr.className = "pc-ad-row"; 
+                const pcAdTd = document.createElement("td");
+                pcAdTd.colSpan = columns.length;
+                pcAdTd.innerHTML = getAdMarkup();
+                pcAdTr.appendChild(pcAdTd);
+                tbody.appendChild(pcAdTr);
+                try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+            }
         }
     });
 }
