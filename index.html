@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성북구 아파트 실거래 조회</title>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2850951807285210" crossorigin="anonymous"></script> 
+
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", sans-serif;
+    margin: 0;
+    padding: 16px;
+    background-color: #f2f2f7; /* iOS 시스템 배경색 */
+    color: #1c1c1e;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 0 16px 4px;
+    letter-spacing: -0.5px;
+}
+
+/* 🎯 구글 애드센스 광고 컨테이너 스타일링 */
+.adsense-container {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    text-align: center;
+    overflow: hidden;
+    min-height: 100px; /* 광고 로딩 전 빈 공간 방지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.adsense-label {
+    display: block;
+    font-size: 10px;
+    color: #c7c7cc;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+/* 컨트롤 영역 스타일링 */
+.controls {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.select-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+select, input, button {
+    font-family: inherit;
+    font-size: 15px;
+    border: 1px solid #e5e5ea;
+    border-radius: 8px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+select {
+    flex: 1;
+    padding: 10px;
+    background-color: #f2f2f7;
+    -webkit-appearance: none;
+    appearance: none;
+    text-align: center;
+}
+
+button {
+    background-color: #007aff; /* iOS 시그니처 블루 */
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:active {
+    background-color: #0056b3;
+}
+
+input {
+    width: 100%;
+    padding: 11px 12px;
+    background-color: #f2f2f7;
+}
+input::placeholder {
+    color: #3a3a3c;
+    opacity: 0.6;
+}
+
+#status {
+    margin: 0 0 12px 4px;
+    font-size: 13px;
+    color: #8e8e93;
+}
+
+/* 메인 컨테이너 */
+.table-container {
+    max-height: 60vh; /* 광고 공간 확보를 위해 높이 살짝 조절 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 테이블 기본 구조 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* ==========================================================================
+   📱 모바일 & 아이폰 13 프로 최적화 세련된 피드 디자인
+   ========================================================================== */
+@media (max-width: 767px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead { display: none; } /* 헤더 제거 */
+
+    .apt-group-header {
+        background: #ffffff !important;
+        margin-bottom: 8px;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border-left: 5px solid #007aff;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        transition: background 0.1s;
+    }
+    .apt-group-header:active {
+        background: #f2f2f7 !important;
+    }
+    
+    .apt-title-box {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 85%;
+    }
+    .apt-name {
+        font-size: 16px;
+        color: #1c1c1e;
+        line-height: 1.3;
+    }
+    .apt-count-badge {
+        font-size: 12px;
+        color: #007aff;
+        background: #e1f0ff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        align-self: flex-start;
+        margin-top: 2px;
+    }
+    .apt-arrow {
+        font-size: 14px;
+        color: #c7c7cc;
+        transition: transform 0.2s;
+    }
+    .apt-arrow.open {
+        transform: rotate(180deg);
+    }
+
+    .detail-container-tr {
+        margin-top: -8px;
+        margin-bottom: 12px;
+        background: #ffffff;
+        border-radius: 0 0 12px 12px;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        border: 1px solid #e5e5ea;
+        border-top: none;
+        padding: 4px 12px 12px 12px;
+    }
+
+    .deal-card {
+        padding: 14px 4px;
+        border-bottom: 1px solid #f2f2f7;
+        position: relative;
+    }
+    .deal-card:last-child {
+        border-bottom: none;
+    }
+
+    .deal-main-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+    }
+    .deal-amount {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ff3b30;
+    }
+    .deal-date {
+        font-size: 12px;
+        color: #8e8e93;
+    }
+
+    .deal-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+    .tag {
+        font-size: 11px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        background: #f2f2f7;
+        color: #48484a;
+    }
+    .tag-blue {
+        background: #e3f2fd;
+        color: #0d47a1;
+    }
+
+    .deal-trade-info {
+        font-size: 11px;
+        color: #aaabb0;
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   💻 PC 웹 브라우저용 스타일
+   ========================================================================== */
+@media (min-width: 768px) {
+    body { background: #fff; }
+    .select-row { display: inline-flex; }
+    input { width: 250px; margin-top: 0; }
+    table { table-layout: fixed; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background: #f5f5f5; position: sticky; top: 0; z-index: 10; }
+    th.col-aptNm { width: 30%; } th.col-dealAmount { width: 10%; }
+    th.col-date { width: 12%; } th.col-cdealDay { width: 8%; }
+    th.col-buildYear { width: 8%; } th.col-excluUseAr { width: 10%; }
+    th.col-floor { width: 6%; } th.col-tradeInfo { width: 16%; }
+
+    .pc-apt-row {
+        background-color: #e2efff !important;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: left !important;
+    }
+    .pc-apt-row td {
+        text-align: left;
+        padding-left: 15px;
+        color: #007aff;
+    }
+    .pc-area-row {
+        background-color: #f9f9f9 !important;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .pc-area-row td {
+        text-align: left;
+        padding-left: 30px;
+        color: #48484a;
+    }
+}
+</style>
+</head>
+<body>
+
+<h2>성북구 실거래 알리미</h2>
+
+<div class="adsense-container">
+    <div>
+        <span class="adsense-label">ADVERTISEMENT</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="YYYYYYYYYY"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div>
+
+<div class="controls">
+    <div class="select-row">
+        <select id="year"></select>
+        <select id="month"></select>
+        <button onclick="loadData()">조회</button>
+    </div>
+    <input type="text" id="searchInput" placeholder="🔍 아파트 이름 검색..." oninput="renderTable()">
+</div>
+
+<div id="status"></div>
+
+<div class="table-container">
+    <table id="mainTable">
+        <thead id="tableHead">
+            <tr id="headerRow"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<div class="adsense-container" style="margin-top: 16px; margin-bottom: 0;">
+    <div>
+        <span class="adsense-label">ADVERTISEMENT</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="ZZZZZZZZZZ"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div>
+
+<script>
+const columns = [
+    { id: "aptNm", label: "aptNm" },
+    { id: "excluUseAr", label: "excluUseAr" },
+    { id: "dealAmount", label: "dealAmount" },
+    { id: "date", label: "date" },
+    { id: "cdealDay", label: "cdealDay" },
+    { id: "buildYear", label: "buildYear" },
+    { id: "floor", label: "floor" },
+    { id: "tradeInfo", label: "dealingGbn(buyerGbn/slerGbn)" }
+];
+
+let data = [];
+let currentSort = "date";
+let sortDesc = true;
+
+function init() {
+    const yearSelect = document.getElementById("year");
+    const monthSelect = document.getElementById("month");
+    const currentYear = new Date().getFullYear();
+
+    for (let y = currentYear; y >= 2006; y--) {
+        yearSelect.add(new Option(y + "년", y));
+    }
+    for (let m = 1; m <= 12; m++) {
+        monthSelect.add(new Option(m + "월", String(m).padStart(2, "0")));
+    }
+
+    yearSelect.value = currentYear;
+    monthSelect.value = String(new Date().getMonth() + 1).padStart(2, "0");
+
+    createHeader();
+}
+
+function createHeader() {
+    const headerRow = document.getElementById("headerRow");
+    headerRow.innerHTML = "";
+    columns.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col.label;
+        th.className = `col-${col.id}`;
+        const sortKey = col.id === "tradeInfo" ? "dealingGbn" : col.id;
+        th.onclick = () => sortTable(sortKey);
+        headerRow.appendChild(th);
+    });
+}
+
+async function loadData() {
+    document.getElementById("searchInput").value = "";
+    const year = Number(document.getElementById("year").value);
+    const month = Number(document.getElementById("month").value);
+
+    const currentYmd = `${year}${String(month).padStart(2, "0")}`;
+
+    const prevDate = month === 1
+        ? { year: year - 1, month: 12 }
+        : { year: year, month: month - 1 };
+
+    const prevYmd = `${prevDate.year}${String(prevDate.month).padStart(2, "0")}`;
+
+    const createUrl = (dealYmd) =>
+        `https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev` +
+        `?serviceKey=jNjo5mC%2BWebzaCZbM75lxY%2ByNSl5MBwmh8Mc%2Fv5iIOTgrB4i9GCUTKvFYT02qdVrNZfp72Ef0M%2B6IyBLKz1SAQ%3D%3D` +
+        `&LAWD_CD=11290` +
+        `&DEAL_YMD=${dealYmd}` +
+        `&pageNo=1` +
+        `&numOfRows=50000`;
+
+    document.getElementById("status").textContent = "데이터를 불러오는 중입니다...";
+
+    try {
+        const responses = await Promise.all([
+            fetch(createUrl(currentYmd)),
+            fetch(createUrl(prevYmd))
+        ]);
+
+        for (const response of responses) {
+            if (!response.ok) {
+                document.getElementById("status").textContent = `오류 발생 (${response.status})`;
+                return;
+            }
+        }
+
+        const xmlTexts = await Promise.all(responses.map(r => r.text()));
+        const parser = new DOMParser();
+        data = [];
+
+        for (const xmlText of xmlTexts) {
+            const xml = parser.parseFromString(xmlText, "text/xml");
+            const items = xml.getElementsByTagName("item");
+
+            for (const item of items) {
+                const row = {};
+                [
+                    "aptNm","dealAmount","dealYear","dealMonth","dealDay",
+                    "cdealDay","buildYear","excluUseAr","floor",
+                    "dealingGbn","buyerGbn","slerGbn",
+                    "umdNm","roadNm","jibun"
+                ].forEach(col => {
+                    const node = item.getElementsByTagName(col)[0];
+                    row[col] = node?.textContent?.trim() ?? "";
+                });
+
+                const amount = Number(row.dealAmount.replaceAll(",", "")) / 10000;
+                row.dealAmount = amount.toFixed(2).replace(/\.00$/, "") + "억";
+
+                row.date = row.dealYear + "." + String(row.dealMonth).padStart(2, "0") + "." + String(row.dealDay).padStart(2, "0");
+                row.address = [row.umdNm, row.roadNm, row.jibun].filter(v => v).join(" ");
+                row.aptNm = row.aptNm + " (" + row.address + ")";
+
+                const dGbn = row.dealingGbn || "-";
+                const bGbn = row.buyerGbn || "-";
+                const sGbn = row.slerGbn || "-";
+                row.tradeInfo = `${dGbn}(${bGbn}/${sGbn})`;
+
+                data.push(row);
+            }
+        }
+
+        defaultSort();
+        renderTable();
+    } catch (e) {
+        console.error(e);
+        document.getElementById("status").textContent = "데이터 요청에 실패했습니다.";
+    }
+}
+
+function defaultSort() {
+    data.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function sortTable(column) {
+    if (currentSort === column) { sortDesc = !sortDesc; } 
+    else { currentSort = column; sortDesc = true; }
+
+    data.sort((a, b) => {
+        let av = a[column] ?? ""; let bv = b[column] ?? "";
+        const na = Number(av.replaceAll(",", "")); const nb = Number(bv.replaceAll(",", ""));
+        if (!isNaN(na) && !isNaN(nb)) return sortDesc ? nb - na : na - nb;
+        return sortDesc ? bv.localeCompare(av) : av.localeCompare(bv);
+    });
+    renderTable();
+}
+
+function renderTable() {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+
+    const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+    const filteredData = data.filter(row => row.aptNm.toLowerCase().includes(searchTerm));
+
+    if (searchTerm) {
+        document.getElementById("status").textContent = `검색 결과: ${filteredData.length}건 / 조회된 데이터 총 ${data.length}건`;
+    } else {
+        document.getElementById("status").textContent = `총 ${data.length}건의 거래가 조회되었습니다. (선택 월 및 이전 달 포함)`;
+    }
+
+    const grouped = {};
+    filteredData.forEach(row => {
+        if (!grouped[row.aptNm]) grouped[row.aptNm] = {};
+        if (!grouped[row.aptNm][row.excluUseAr]) grouped[row.aptNm][row.excluUseAr] = [];
+        grouped[row.aptNm][row.excluUseAr].push(row);
+    });
+
+    const isMobile = window.innerWidth < 767;
+
+    Object.entries(grouped).forEach(([aptNm, areaGroups]) => {
+        const sortedAreaGroups = Object.fromEntries(
+            Object.entries(areaGroups).sort((a, b) => Number(a[0]) - Number(b[0]))
+        );
+        const allRowsForApt = Object.values(sortedAreaGroups).flat();
+
+        if (isMobile) {
+            const groupTr = document.createElement("tr");
+            groupTr.className = "apt-group-header";
+            groupTr.innerHTML = `
+                <div class="apt-title-box">
+                    <span class="apt-name">${aptNm}</span>
+                    <span class="apt-count-badge">${Object.keys(sortedAreaGroups).length}개 평형 / ${allRowsForApt.length}건의 거래</span>
+                </div>
+                <div class="apt-arrow">▼</div>
+            `;
+            tbody.appendChild(groupTr);
+
+            const detailWrapperTr = document.createElement("tr");
+            detailWrapperTr.style.display = "none";
+            const detailTd = document.createElement("td");
+            detailTd.className = "detail-container-tr";
+            
+            Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
+                const title = document.createElement("div");
+                title.innerHTML = `<h4>${area}㎡ (${areaRows.length}건)</h4>`;
+                detailTd.appendChild(title);
+
+                areaRows.forEach(row => {
+                    const card = document.createElement("div");
+                    card.className = "deal-card";
+                    const cancelTag = row.cdealDay ? `<span class="tag" style="background:#ffdddd; color:#cc0000; font-weight:bold;">취소일: ${row.cdealDay}</span>` : '';
+                    card.innerHTML = `
+                        <div class="deal-main-row">
+                            <span class="deal-amount">${row.dealAmount}</span>
+                            <span class="deal-date">${row.date} 계약</span>
+                        </div>
+                        <div class="deal-tags">
+                            <span class="tag tag-blue">${row.excluUseAr}㎡ (전용)</span>
+                            <span class="tag">${row.floor}층</span>
+                            <span class="tag">${row.buildYear}년 준공</span>
+                            ${cancelTag}
+                        </div>
+                        <span class="deal-trade-info">중개구분: ${row.tradeInfo}</span>
+                    `;
+                    detailTd.appendChild(card);
+                });
+            });
+            detailWrapperTr.appendChild(detailTd);
+            tbody.appendChild(detailWrapperTr);
+
+            groupTr.onclick = () => {
+                const arrow = groupTr.querySelector(".apt-arrow");
+                if (detailWrapperTr.style.display === "none") {
+                    detailWrapperTr.style.display = "";
+                    arrow.classList.add("open");
+                } else {
+                    detailWrapperTr.style.display = "none";
+                    arrow.classList.remove("open");
+                }
+            };
+
+        } else {
+            const aptRow = document.createElement("tr");
+            aptRow.className = "pc-apt-row";
+            const aptTd = document.createElement("td");
+            aptTd.colSpan = columns.length;
+            
+            aptTd.textContent = `▶ ${aptNm} (${Object.keys(sortedAreaGroups).length}개 평형 / 총 ${allRowsForApt.length}건)`;
+            aptRow.appendChild(aptTd);
+            tbody.appendChild(aptRow);
+
+            const allChildRows = [];
+
+            Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
+                const areaRow = document.createElement("tr");
+                areaRow.className = "pc-area-row";
+                areaRow.style.display = "none";
+                const areaTd = document.createElement("td");
+                areaTd.colSpan = columns.length;
+                areaTd.textContent = `  └ 📋 전용면적 ${area}㎡ (${areaRows.length}건 거래)`;
+                areaRow.appendChild(areaTd);
+                tbody.appendChild(areaRow);
+                
+                allChildRows.push(areaRow);
+
+                areaRows.forEach(row => {
+                    const dataTr = document.createElement("tr");
+                    dataTr.style.display = "none";
+                    dataTr.style.backgroundColor = "#fff";
+                    
+                    columns.forEach(col => {
+                        const td = document.createElement("td");
+                        td.textContent = row[col.id];
+                        if(col.id === "cdealDay" && row.cdealDay) {
+                            td.style.color = "red";
+                            td.style.fontWeight = "bold";
+                        }
+                        dataTr.appendChild(td);
+                    });
+                    tbody.appendChild(dataTr);
+                    allChildRows.push(dataTr);
+                });
+            });
+
+            aptRow.onclick = () => {
+                const isOpening = allChildRows[0].style.display === "none";
+                
+                if (isOpening) {
+                    aptTd.textContent = aptTd.textContent.replace("▶", "▼");
+                    allChildRows.forEach(r => r.style.display = "");
+                } else {
+                    aptTd.textContent = aptTd.textContent.replace("▼", "▶");
+                    allChildRows.forEach(r => r.style.display = "none");
+                }
+            };
+        }
+    });
+}
+
+window.onresize = () => { renderTable(); };
+
+init();
+</script>
+
+</body>
+</html>
