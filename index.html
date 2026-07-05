@@ -176,31 +176,19 @@ table {
         transform: rotate(180deg);
     }
 
-    /* ✨ 모바일 내부 상세함 컨테이너 간격 및 스타일 미화 */
     .detail-container-tr {
         margin-top: -8px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
         background: #ffffff;
         border-radius: 0 0 12px 12px;
-        box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         border: 1px solid #e5e5ea;
         border-top: none;
-        padding: 4px 16px 12px 16px;
+        padding: 4px 12px 12px 12px;
     }
 
-    /* ✨ 평형 타이틀 h4 태그 마진 좁히기 */
-    .detail-container-tr h4 {
-        font-size: 14px;
-        font-weight: 700;
-        color: #48484a;
-        margin: 14px 0 6px 2px;
-        display: flex;
-        align-items: center;
-    }
-
-    /* ✨ 거래 카드 간격 조정 및 미화 */
     .deal-card {
-        padding: 12px 4px;
+        padding: 14px 4px;
         border-bottom: 1px solid #f2f2f7;
         position: relative;
     }
@@ -212,10 +200,10 @@ table {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     .deal-amount {
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 700;
         color: #ff3b30;
     }
@@ -228,7 +216,7 @@ table {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     .tag {
         font-size: 11px;
@@ -257,18 +245,12 @@ table {
     .select-row { display: inline-flex; }
     input { width: 250px; margin-top: 0; }
     table { table-layout: fixed; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 14px; }
-    th { background: #f5f5f5; position: sticky; top: 0; z-index: 10; font-weight: 600; color: #3a3a3c; }
-    
-    /* 한글화 맞춤 너비 밸런스 조정 */
-    th.col-aptNm { width: 28%; } 
-    th.col-excluUseAr { width: 10%; }
-    th.col-dealAmount { width: 10%; }
-    th.col-date { width: 11%; } 
-    th.col-cdealDay { width: 11%; }
-    th.col-buildYear { width: 8%; } 
-    th.col-floor { width: 6%; } 
-    th.col-tradeInfo { width: 16%; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background: #f5f5f5; position: sticky; top: 0; z-index: 10; }
+    th.col-aptNm { width: 30%; } th.col-dealAmount { width: 10%; }
+    th.col-date { width: 12%; } th.col-cdealDay { width: 8%; }
+    th.col-buildYear { width: 8%; } th.col-excluUseAr { width: 10%; }
+    th.col-floor { width: 6%; } th.col-tradeInfo { width: 16%; }
 
     .pc-apt-row {
         background-color: #e2efff !important;
@@ -296,9 +278,15 @@ table {
         background-color: #f2f2f7;
     }
 }
+
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.6);display:none;justify-content:center;align-items:center;z-index:9999}
+.loading-spinner{width:60px;height:60px;border:6px solid #ddd;border-top:6px solid #007aff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 </style>
 </head>
 <body>
+<div id="loading" class="loading-overlay"><div class="loading-spinner"></div></div>
 
 <h2>성북구 실거래 알리미</h2>
 
@@ -308,7 +296,7 @@ table {
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-2850951807285210"
-             data-ad-slot="YYYYYYYYYY"
+             data-ad-slot="9555755536"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -343,7 +331,7 @@ table {
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-2850951807285210"
-             data-ad-slot="ZZZZZZZZZZ"
+             data-ad-slot="9555755536"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -353,16 +341,15 @@ table {
 </div>
 
 <script>
-// 🛠️ 1. 컬럼 한글화 맵핑 구조 정의
 const columns = [
-    { id: "aptNm", label: "아파트명" },
-    { id: "excluUseAr", label: "전용면적(㎡)" },
-    { id: "dealAmount", label: "금액" },
-    { id: "date", label: "계약일" },
-    { id: "cdealDay", label: "취소일" },
-    { id: "buildYear", label: "건축년도" },
-    { id: "floor", label: "층" },
-    { id: "tradeInfo", label: "거래구분" }
+    { id: "aptNm", label: "aptNm" },
+    { id: "excluUseAr", label: "excluUseAr" },
+    { id: "dealAmount", label: "dealAmount" },
+    { id: "date", label: "date" },
+    { id: "cdealDay", label: "cdealDay" },
+    { id: "buildYear", label: "buildYear" },
+    { id: "floor", label: "floor" },
+    { id: "tradeInfo", label: "dealingGbn(buyerGbn/slerGbn)" }
 ];
 
 let data = [];
@@ -385,7 +372,7 @@ function init() {
     monthSelect.value = String(new Date().getMonth() + 1).padStart(2, "0");
 
     createHeader();
-    
+
     loadData();
 }
 
@@ -424,6 +411,7 @@ async function loadData() {
         `&numOfRows=50000`;
 
     document.getElementById("status").textContent = "데이터를 불러오는 중입니다...";
+    document.getElementById("loading").style.display="flex";
 
     try {
         const responses = await Promise.all([
@@ -438,6 +426,7 @@ async function loadData() {
             }
         }
 
+        // 🛠️ [오타 완벽 교정] 오동작 하던 Promise.all 내부 호출 방식을 정상적으로 수정
         const xmlTexts = await Promise.all(responses.map(r => r.text()));
         const parser = new DOMParser();
         data = [];
@@ -479,6 +468,8 @@ async function loadData() {
     } catch (e) {
         console.error(e);
         document.getElementById("status").textContent = "데이터 요청에 실패했습니다.";
+    } finally {
+        document.getElementById("loading").style.display='none';
     }
 }
 
@@ -507,7 +498,7 @@ function getAdMarkup() {
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-2850951807285210"
-                     data-ad-slot="YYYYYYYYYY"
+                     data-ad-slot="9555755536"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
             </div>
@@ -567,7 +558,7 @@ function renderTable() {
 
             Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
                 const title = document.createElement("div");
-                title.innerHTML = `<h4>📋 전용면적 ${area}㎡ (${areaRows.length}건)</h4>`;
+                title.innerHTML = `<h4>${area}㎡ (${areaRows.length}건)</h4>`;
                 detailTd.appendChild(title);
 
                 areaRows.forEach(row => {
@@ -580,12 +571,12 @@ function renderTable() {
                             <span class="deal-date">${row.date} 계약</span>
                         </div>
                         <div class="deal-tags">
-                            <span class="tag tag-blue">${row.excluUseAr}㎡</span>
+                            <span class="tag tag-blue">${row.excluUseAr}㎡ (전용)</span>
                             <span class="tag">${row.floor}층</span>
                             <span class="tag">${row.buildYear}년 준공</span>
                             ${cancelTag}
                         </div>
-                        <span class="deal-trade-info">거래구분: ${row.tradeInfo}</span>
+                        <span class="deal-trade-info">중개구분: ${row.tradeInfo}</span>
                     `;
                     detailTd.appendChild(card);
 
