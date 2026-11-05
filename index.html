@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>성북구 아파트 실거래 조회</title>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2850951807285210" crossorigin="anonymous"></script> 
-
 <style>
 body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", sans-serif;
     margin: 0;
     padding: 16px;
-    background-color: #f2f2f7; /* iOS 시스템 배경색 */
+    background-color: #f2f2f7;
     color: #1c1c1e;
 }
 
@@ -23,29 +21,7 @@ h2 {
     letter-spacing: -0.5px;
 }
 
-/* 🎯 구글 애드센스 광고 컨테이너 스타일링 */
-.adsense-container {
-    background: #ffffff;
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    text-align: center;
-    overflow: hidden;
-    min-height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.adsense-label {
-    display: block;
-    font-size: 10px;
-    color: #c7c7cc;
-    margin-bottom: 4px;
-    text-align: center;
-}
-
-/* 컨트롤 영역 스타일링 */
+/* 컨트롤 영역 */
 .controls {
     background: #ffffff;
     padding: 12px;
@@ -79,7 +55,7 @@ select {
 }
 
 button {
-    background-color: #007aff; /* iOS 시그니처 블루 */
+    background-color: #007aff;
     color: white;
     border: none;
     font-weight: 600;
@@ -87,6 +63,7 @@ button {
     cursor: pointer;
     transition: background 0.2s;
 }
+
 button:active {
     background-color: #0056b3;
 }
@@ -96,6 +73,7 @@ input {
     padding: 11px 12px;
     background-color: #f2f2f7;
 }
+
 input::placeholder {
     color: #3a3a3c;
     opacity: 0.6;
@@ -114,20 +92,21 @@ input::placeholder {
     -webkit-overflow-scrolling: touch;
 }
 
-/* 테이블 기본 구조 */
+/* 테이블 */
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
-/* ==========================================================================
-   📱 모바일 & 아이폰 최적화 세련된 피드 디자인
-   ========================================================================== */
+/* 모바일 */
 @media (max-width: 767px) {
     table, thead, tbody, th, td, tr {
         display: block;
     }
-    thead { display: none; }
+
+    thead {
+        display: none;
+    }
 
     .apt-group-header {
         background: #ffffff !important;
@@ -143,21 +122,24 @@ table {
         font-weight: 600;
         transition: background 0.1s;
     }
+
     .apt-group-header:active {
         background: #f2f2f7 !important;
     }
-    
+
     .apt-title-box {
         display: flex;
         flex-direction: column;
         gap: 4px;
         width: 85%;
     }
+
     .apt-name {
         font-size: 16px;
         color: #1c1c1e;
         line-height: 1.3;
     }
+
     .apt-count-badge {
         font-size: 12px;
         color: #007aff;
@@ -167,11 +149,13 @@ table {
         align-self: flex-start;
         margin-top: 2px;
     }
+
     .apt-arrow {
         font-size: 14px;
         color: #c7c7cc;
         transition: transform 0.2s;
     }
+
     .apt-arrow.open {
         transform: rotate(180deg);
     }
@@ -192,6 +176,7 @@ table {
         border-bottom: 1px solid #f2f2f7;
         position: relative;
     }
+
     .deal-card:last-child {
         border-bottom: none;
     }
@@ -202,11 +187,13 @@ table {
         align-items: baseline;
         margin-bottom: 8px;
     }
+
     .deal-amount {
         font-size: 18px;
         font-weight: 700;
         color: #ff3b30;
     }
+
     .deal-date {
         font-size: 12px;
         color: #8e8e93;
@@ -218,6 +205,7 @@ table {
         gap: 6px;
         margin-bottom: 8px;
     }
+
     .tag {
         font-size: 11px;
         padding: 3px 6px;
@@ -225,6 +213,7 @@ table {
         background: #f2f2f7;
         color: #48484a;
     }
+
     .tag-blue {
         background: #e3f2fd;
         color: #0d47a1;
@@ -237,20 +226,47 @@ table {
     }
 }
 
-/* ==========================================================================
-   💻 PC 웹 브라우저용 스타일
-   ========================================================================== */
+/* PC */
 @media (min-width: 768px) {
-    body { background: #fff; }
-    .select-row { display: inline-flex; }
-    input { width: 250px; margin-top: 0; }
-    table { table-layout: fixed; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-    th { background: #f5f5f5; position: sticky; top: 0; z-index: 10; }
-    th.col-aptNm { width: 30%; } th.col-dealAmount { width: 10%; }
-    th.col-date { width: 12%; } th.col-cdealDay { width: 8%; }
-    th.col-buildYear { width: 8%; } th.col-excluUseAr { width: 10%; }
-    th.col-floor { width: 6%; } th.col-tradeInfo { width: 16%; }
+    body {
+        background: #fff;
+    }
+
+    .select-row {
+        display: inline-flex;
+    }
+
+    input {
+        width: 250px;
+        margin-top: 0;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background: #f5f5f5;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    th.col-aptNm { width: 30%; }
+    th.col-dealAmount { width: 10%; }
+    th.col-date { width: 12%; }
+    th.col-cdealDay { width: 8%; }
+    th.col-buildYear { width: 8%; }
+    th.col-excluUseAr { width: 10%; }
+    th.col-floor { width: 6%; }
+    th.col-tradeInfo { width: 16%; }
 
     .pc-apt-row {
         background-color: #e2efff !important;
@@ -258,52 +274,61 @@ table {
         cursor: pointer;
         text-align: left !important;
     }
+
     .pc-apt-row td {
         text-align: left;
         padding-left: 15px;
         color: #007aff;
     }
+
     .pc-area-row {
         background-color: #f9f9f9 !important;
         font-weight: 600;
         cursor: pointer;
     }
+
     .pc-area-row td {
         text-align: left;
         padding-left: 30px;
         color: #48484a;
     }
-    .pc-ad-row td {
-        padding: 12px;
-        background-color: #f2f2f7;
-    }
 }
 
-.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.6);display:none;justify-content:center;align-items:center;z-index:9999}
-.loading-spinner{width:60px;height:60px;border:6px solid #ddd;border-top:6px solid #007aff;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* 로딩 */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #ddd;
+    border-top: 6px solid #007aff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 </style>
 </head>
+
 <body>
-<div id="loading" class="loading-overlay"><div class="loading-spinner"></div></div>
+
+<div id="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+</div>
 
 <h2>성북구 실거래 알리미</h2>
-
-<div class="adsense-container">
-    <div>
-        <span class="adsense-label">ADVERTISEMENT</span>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2850951807285210"
-             data-ad-slot="9555755536"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-</div>
 
 <div class="controls">
     <div class="select-row">
@@ -311,7 +336,13 @@ table {
         <select id="month"></select>
         <button onclick="loadData()">조회</button>
     </div>
-    <input type="text" id="searchInput" placeholder="🔍 아파트 이름 검색..." oninput="renderTable()">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 아파트 이름 검색..."
+        oninput="renderTable()"
+    >
 </div>
 
 <div id="status"></div>
@@ -325,22 +356,9 @@ table {
     </table>
 </div>
 
-<div class="adsense-container" style="margin-top: 16px; margin-bottom: 0;">
-    <div>
-        <span class="adsense-label">ADVERTISEMENT</span>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2850951807285210"
-             data-ad-slot="9555755536"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-</div>
-
 <script>
+const DEFAULT_SEARCH = "길음동동부센트레빌";
+
 const columns = [
     { id: "aptNm", label: "aptNm" },
     { id: "excluUseAr", label: "excluUseAr" },
@@ -359,13 +377,17 @@ let sortDesc = true;
 function init() {
     const yearSelect = document.getElementById("year");
     const monthSelect = document.getElementById("month");
+
     const currentYear = new Date().getFullYear();
 
     for (let y = currentYear; y >= 2006; y--) {
         yearSelect.add(new Option(y + "년", y));
     }
+
     for (let m = 1; m <= 12; m++) {
-        monthSelect.add(new Option(m + "월", String(m).padStart(2, "0")));
+        monthSelect.add(
+            new Option(m + "월", String(m).padStart(2, "0"))
+        );
     }
 
     yearSelect.value = currentYear;
@@ -379,18 +401,22 @@ function init() {
 function createHeader() {
     const headerRow = document.getElementById("headerRow");
     headerRow.innerHTML = "";
+
     columns.forEach(col => {
         const th = document.createElement("th");
+
         th.textContent = col.label;
         th.className = `col-${col.id}`;
+
         const sortKey = col.id === "tradeInfo" ? "dealingGbn" : col.id;
+
         th.onclick = () => sortTable(sortKey);
+
         headerRow.appendChild(th);
     });
 }
 
 async function loadData() {
-    document.getElementById("searchInput").value = "";
     const year = Number(document.getElementById("year").value);
     const month = Number(document.getElementById("month").value);
 
@@ -411,7 +437,7 @@ async function loadData() {
         `&numOfRows=50000`;
 
     document.getElementById("status").textContent = "데이터를 불러오는 중입니다...";
-    document.getElementById("loading").style.display="flex";
+    document.getElementById("loading").style.display = "flex";
 
     try {
         const responses = await Promise.all([
@@ -421,42 +447,59 @@ async function loadData() {
 
         for (const response of responses) {
             if (!response.ok) {
-                document.getElementById("status").textContent = `오류 발생 (${response.status})`;
+                document.getElementById("status").textContent =
+                    `오류 발생 (${response.status})`;
                 return;
             }
         }
 
-        // 🛠️ [오타 완벽 교정] 오동작 하던 Promise.all 내부 호출 방식을 정상적으로 수정
         const xmlTexts = await Promise.all(responses.map(r => r.text()));
+
         const parser = new DOMParser();
         data = [];
 
         for (const xmlText of xmlTexts) {
             const xml = parser.parseFromString(xmlText, "text/xml");
+
             const items = xml.getElementsByTagName("item");
 
             for (const item of items) {
                 const row = {};
+
                 [
-                    "aptNm","dealAmount","dealYear","dealMonth","dealDay",
-                    "cdealDay","buildYear","excluUseAr","floor",
-                    "dealingGbn","buyerGbn","slerGbn",
-                    "umdNm","roadNm","jibun"
+                    "aptNm", "dealAmount", "dealYear", "dealMonth", "dealDay",
+                    "cdealDay", "buildYear", "excluUseAr", "floor",
+                    "dealingGbn", "buyerGbn", "slerGbn",
+                    "umdNm", "roadNm", "jibun"
                 ].forEach(col => {
                     const node = item.getElementsByTagName(col)[0];
                     row[col] = node?.textContent?.trim() ?? "";
                 });
 
-                const amount = Number(row.dealAmount.replaceAll(",", "")) / 10000;
-                row.dealAmount = amount.toFixed(2).replace(/\.00$/, "") + "억";
+                const amount = Number(
+                    row.dealAmount.replaceAll(",", "")
+                ) / 10000;
 
-                row.date = row.dealYear + "." + String(row.dealMonth).padStart(2, "0") + "." + String(row.dealDay).padStart(2, "0");
-                row.address = [row.umdNm, row.roadNm, row.jibun].filter(v => v).join(" ");
+                row.dealAmount =
+                    amount.toFixed(2).replace(/\.00$/, "") + "억";
+
+                row.date =
+                    row.dealYear + "." +
+                    String(row.dealMonth).padStart(2, "0") + "." +
+                    String(row.dealDay).padStart(2, "0");
+
+                row.address = [
+                    row.umdNm,
+                    row.roadNm,
+                    row.jibun
+                ].filter(v => v).join(" ");
+
                 row.aptNm = row.aptNm + " (" + row.address + ")";
 
                 const dGbn = row.dealingGbn || "-";
                 const bGbn = row.buyerGbn || "-";
                 const sGbn = row.slerGbn || "-";
+
                 row.tradeInfo = `${dGbn}(${bGbn}/${sGbn})`;
 
                 data.push(row);
@@ -464,12 +507,21 @@ async function loadData() {
         }
 
         defaultSort();
+
+        // 데이터 로딩 완료 후 기본 검색어 설정
+        document.getElementById("searchInput").value = DEFAULT_SEARCH;
+
+        // 기본 검색어로 검색 결과 표시
         renderTable();
+
     } catch (e) {
         console.error(e);
-        document.getElementById("status").textContent = "데이터 요청에 실패했습니다.";
+
+        document.getElementById("status").textContent =
+            "데이터 요청에 실패했습니다.";
+
     } finally {
-        document.getElementById("loading").style.display='none';
+        document.getElementById("loading").style.display = "none";
     }
 }
 
@@ -478,123 +530,159 @@ function defaultSort() {
 }
 
 function sortTable(column) {
-    if (currentSort === column) { sortDesc = !sortDesc; } 
-    else { currentSort = column; sortDesc = true; }
+    if (currentSort === column) {
+        sortDesc = !sortDesc;
+    } else {
+        currentSort = column;
+        sortDesc = true;
+    }
 
     data.sort((a, b) => {
-        let av = a[column] ?? ""; let bv = b[column] ?? "";
-        const na = Number(av.replaceAll(",", "")); const nb = Number(bv.replaceAll(",", ""));
-        if (!isNaN(na) && !isNaN(nb)) return sortDesc ? nb - na : na - nb;
-        return sortDesc ? bv.localeCompare(av) : av.localeCompare(bv);
-    });
-    renderTable();
-}
+        let av = a[column] ?? "";
+        let bv = b[column] ?? "";
 
-function getAdMarkup() {
-    return `
-        <div class="adsense-container" style="margin: 8px 0; background: #ffffff;">
-            <div>
-                <span class="adsense-label">ADVERTISEMENT</span>
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-2850951807285210"
-                     data-ad-slot="9555755536"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-            </div>
-        </div>
-    `;
+        const na = Number(av.replaceAll(",", ""));
+        const nb = Number(bv.replaceAll(",", ""));
+
+        if (!isNaN(na) && !isNaN(nb)) {
+            return sortDesc ? nb - na : na - nb;
+        }
+
+        return sortDesc
+            ? bv.localeCompare(av)
+            : av.localeCompare(bv);
+    });
+
+    renderTable();
 }
 
 function renderTable() {
     const tbody = document.getElementById("tableBody");
+
     tbody.innerHTML = "";
 
-    const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
-    const filteredData = data.filter(row => row.aptNm.toLowerCase().includes(searchTerm));
+    const searchTerm = document
+        .getElementById("searchInput")
+        .value.trim()
+        .toLowerCase();
+
+    const filteredData = data.filter(row =>
+        row.aptNm.toLowerCase().includes(searchTerm)
+    );
 
     if (searchTerm) {
-        document.getElementById("status").textContent = `검색 결과: ${filteredData.length}건 / 조회된 데이터 총 ${data.length}건`;
+        document.getElementById("status").textContent =
+            `검색 결과: ${filteredData.length}건 / 조회된 데이터 총 ${data.length}건`;
     } else {
-        document.getElementById("status").textContent = `총 ${data.length}건의 거래가 조회되었습니다. (선택 월 및 이전 달 포함)`;
+        document.getElementById("status").textContent =
+            `총 ${data.length}건의 거래가 조회되었습니다. (선택 월 및 이전 달 포함)`;
     }
 
     const grouped = {};
+
     filteredData.forEach(row => {
-        if (!grouped[row.aptNm]) grouped[row.aptNm] = {};
-        if (!grouped[row.aptNm][row.excluUseAr]) grouped[row.aptNm][row.excluUseAr] = [];
+        if (!grouped[row.aptNm]) {
+            grouped[row.aptNm] = {};
+        }
+
+        if (!grouped[row.aptNm][row.excluUseAr]) {
+            grouped[row.aptNm][row.excluUseAr] = [];
+        }
+
         grouped[row.aptNm][row.excluUseAr].push(row);
     });
 
     const isMobile = window.innerWidth < 767;
-    let aptGroupCounter = 0; 
+
+    let aptGroupCounter = 0;
 
     Object.entries(grouped).forEach(([aptNm, areaGroups]) => {
+
         const sortedAreaGroups = Object.fromEntries(
-            Object.entries(areaGroups).sort((a, b) => Number(a[0]) - Number(b[0]))
+            Object.entries(areaGroups).sort(
+                (a, b) => Number(a[0]) - Number(b[0])
+            )
         );
+
         const allRowsForApt = Object.values(sortedAreaGroups).flat();
 
         aptGroupCounter++;
 
         if (isMobile) {
+
             const groupTr = document.createElement("tr");
             groupTr.className = "apt-group-header";
+
             groupTr.innerHTML = `
                 <div class="apt-title-box">
                     <span class="apt-name">${aptNm}</span>
-                    <span class="apt-count-badge">${Object.keys(sortedAreaGroups).length}개 평형 / ${allRowsForApt.length}건의 거래</span>
+                    <span class="apt-count-badge">
+                        ${Object.keys(sortedAreaGroups).length}개 평형 /
+                        ${allRowsForApt.length}건의 거래
+                    </span>
                 </div>
                 <div class="apt-arrow">▼</div>
             `;
+
             tbody.appendChild(groupTr);
 
             const detailWrapperTr = document.createElement("tr");
             detailWrapperTr.style.display = "none";
+
             const detailTd = document.createElement("td");
             detailTd.className = "detail-container-tr";
-            
-            let mobileDealCardCounter = 0;
 
             Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
+
                 const title = document.createElement("div");
+
                 title.innerHTML = `<h4>${area}㎡ (${areaRows.length}건)</h4>`;
+
                 detailTd.appendChild(title);
 
                 areaRows.forEach(row => {
+
                     const card = document.createElement("div");
                     card.className = "deal-card";
-                    const cancelTag = row.cdealDay ? `<span class="tag" style="background:#ffdddd; color:#cc0000; font-weight:bold;">취소일: ${row.cdealDay}</span>` : '';
+
+                    const cancelTag = row.cdealDay
+                        ? `<span class="tag" style="background:#ffdddd; color:#cc0000; font-weight:bold;">
+                            취소일: ${row.cdealDay}
+                           </span>`
+                        : "";
+
                     card.innerHTML = `
                         <div class="deal-main-row">
                             <span class="deal-amount">${row.dealAmount}</span>
                             <span class="deal-date">${row.date} 계약</span>
                         </div>
+
                         <div class="deal-tags">
-                            <span class="tag tag-blue">${row.excluUseAr}㎡ (전용)</span>
+                            <span class="tag tag-blue">
+                                ${row.excluUseAr}㎡ (전용)
+                            </span>
+
                             <span class="tag">${row.floor}층</span>
                             <span class="tag">${row.buildYear}년 준공</span>
+
                             ${cancelTag}
                         </div>
-                        <span class="deal-trade-info">중개구분: ${row.tradeInfo}</span>
+
+                        <span class="deal-trade-info">
+                            중개구분: ${row.tradeInfo}
+                        </span>
                     `;
+
                     detailTd.appendChild(card);
-
-                    mobileDealCardCounter++;
-
-                    if (mobileDealCardCounter % 3 === 0) {
-                        const innerAdDiv = document.createElement("div");
-                        innerAdDiv.innerHTML = getAdMarkup();
-                        detailTd.appendChild(innerAdDiv);
-                        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
-                    }
                 });
             });
+
             detailWrapperTr.appendChild(detailTd);
             tbody.appendChild(detailWrapperTr);
 
             groupTr.onclick = () => {
                 const arrow = groupTr.querySelector(".apt-arrow");
+
                 if (detailWrapperTr.style.display === "none") {
                     detailWrapperTr.style.display = "";
                     arrow.classList.add("open");
@@ -604,111 +692,98 @@ function renderTable() {
                 }
             };
 
-            if (aptGroupCounter % 3 === 0) {
-                const mobileAdTr = document.createElement("tr");
-                const mobileAdTd = document.createElement("td");
-                mobileAdTd.style.padding = "0";
-                mobileAdTd.innerHTML = getAdMarkup();
-                mobileAdTr.appendChild(mobileAdTd);
-                tbody.appendChild(mobileAdTr);
-                try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
-            }
-
         } else {
-            // 💻 PC 버전 처리
+
+            // PC 버전
             const aptRow = document.createElement("tr");
             aptRow.className = "pc-apt-row";
+
             const aptTd = document.createElement("td");
             aptTd.colSpan = columns.length;
-            
-            aptTd.textContent = `▶ ${aptNm} (${Object.keys(sortedAreaGroups).length}개 평형 / 총 ${allRowsForApt.length}건)`;
+
+            aptTd.textContent =
+                `▶ ${aptNm} (${Object.keys(sortedAreaGroups).length}개 평형 / 총 ${allRowsForApt.length}건)`;
+
             aptRow.appendChild(aptTd);
             tbody.appendChild(aptRow);
 
             const allChildRows = [];
-            const adRowsToPush = [];
-            let pcDealRowCounter = 0;
 
             Object.entries(sortedAreaGroups).forEach(([area, areaRows]) => {
+
                 const areaRow = document.createElement("tr");
                 areaRow.className = "pc-area-row";
                 areaRow.style.display = "none";
+
                 const areaTd = document.createElement("td");
                 areaTd.colSpan = columns.length;
-                areaTd.textContent = `  └ 📋 전용면적 ${area}㎡ (${areaRows.length}건 거래)`;
+
+                areaTd.textContent =
+                    `  └ 📋 전용면적 ${area}㎡ (${areaRows.length}건 거래)`;
+
                 areaRow.appendChild(areaTd);
                 tbody.appendChild(areaRow);
-                
+
                 allChildRows.push(areaRow);
 
                 areaRows.forEach(row => {
+
                     const dataTr = document.createElement("tr");
+
                     dataTr.style.display = "none";
                     dataTr.style.backgroundColor = "#fff";
-                    
+
                     columns.forEach(col => {
+
                         const td = document.createElement("td");
+
                         td.textContent = row[col.id];
-                        if(col.id === "cdealDay" && row.cdealDay) {
+
+                        if (col.id === "cdealDay" && row.cdealDay) {
                             td.style.color = "red";
                             td.style.fontWeight = "bold";
                         }
+
                         dataTr.appendChild(td);
                     });
+
                     tbody.appendChild(dataTr);
                     allChildRows.push(dataTr);
-
-                    pcDealRowCounter++;
-
-                    if (pcDealRowCounter % 3 === 0) {
-                        const pcInnerAdTr = document.createElement("tr");
-                        pcInnerAdTr.className = "pc-ad-row";
-                        pcInnerAdTr.style.display = "none"; 
-                        
-                        const pcInnerAdTd = document.createElement("td");
-                        pcInnerAdTd.colSpan = columns.length;
-                        pcInnerAdTd.innerHTML = getAdMarkup();
-                        
-                        pcInnerAdTr.appendChild(pcInnerAdTd);
-                        tbody.appendChild(pcInnerAdTr);
-                        
-                        allChildRows.push(pcInnerAdTr);
-                        adRowsToPush.push(pcInnerAdTr);
-                    }
                 });
             });
 
             aptRow.onclick = () => {
-                const isOpening = allChildRows[0].style.display === "none";
-                
+
+                const isOpening =
+                    allChildRows.length > 0 &&
+                    allChildRows[0].style.display === "none";
+
                 if (isOpening) {
-                    aptTd.textContent = aptTd.textContent.replace("▶", "▼");
-                    allChildRows.forEach(r => r.style.display = "");
-                    
-                    adRowsToPush.forEach(() => {
-                        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+
+                    aptTd.textContent =
+                        aptTd.textContent.replace("▶", "▼");
+
+                    allChildRows.forEach(r => {
+                        r.style.display = "";
                     });
+
                 } else {
-                    aptTd.textContent = aptTd.textContent.replace("▼", "▶");
-                    allChildRows.forEach(r => r.style.display = "none");
+
+                    aptTd.textContent =
+                        aptTd.textContent.replace("▼", "▶");
+
+                    allChildRows.forEach(r => {
+                        r.style.display = "none";
+                    });
                 }
             };
-
-            if (aptGroupCounter % 3 === 0) {
-                const pcAdTr = document.createElement("tr");
-                pcAdTr.className = "pc-ad-row"; 
-                const pcAdTd = document.createElement("td");
-                pcAdTd.colSpan = columns.length;
-                pcAdTd.innerHTML = getAdMarkup();
-                pcAdTr.appendChild(pcAdTd);
-                tbody.appendChild(pcAdTr);
-                try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
-            }
         }
     });
 }
 
-window.onresize = () => { renderTable(); };
+window.onresize = () => {
+    renderTable();
+};
 
 init();
 </script>
